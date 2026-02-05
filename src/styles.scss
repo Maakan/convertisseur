@@ -1,1 +1,97 @@
-/* You can add global styles to this file, and also import other style files */
+/* Variables */
+$primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+$border-radius: 6px;
+$border-radius-lg: 8px;
+$color-text: #495057;
+$color-border: #ddd;
+$color-bg: #f8f9fa;
+$color-white: white;
+$color-success: #28a745;
+$color-disabled: #999;
+
+/* Base */
+.exchange-rate-container {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 20px;
+  font-weight: 600;
+}
+
+/* Rate Display */
+.rate-display {
+  text-align: center;
+  padding: 20px;
+  background: $primary-gradient;
+  border-radius: $border-radius-lg;
+  margin-bottom: 20px;
+  color: $color-white;
+}
+
+.rate-value {
+  font-size: 1.8em;
+  display: block;
+  margin: 10px 0;
+}
+
+/* Converter */
+.converter {
+  background: $color-bg;
+  padding: 20px;
+  border-radius: $border-radius-lg;
+}
+
+.rate-control,
+.switch-container {
+  background: $color-white;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: $border-radius;
+  border: 1px solid $color-border;
+}
+
+/* Form Elements */
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: $color-text;
+}
+
+input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid $color-border;
+  border-radius: $border-radius;
+  box-sizing: border-box;
+  font-weight: 600;
+
+  &:focus {
+    outline: none;
+    border-color: #667eea;
+  }
+}
+
+/* Result */
+.result-value {
+  font-size: 2em;
+  color: $color-success;
+  text-align: center;
+  margin-top: 15px;
+}
+
+/* Button */
+.btn-enregistrer {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  background: $primary-gradient;
+  color: $color-white;
+  border: none;
+  border-radius: $border-radius;
+  cursor: pointer;
+
+  &:disabled {
+    background: $color-border;
+    color: $color-disabled;
+    cursor: not-allowed;
+  }
+}

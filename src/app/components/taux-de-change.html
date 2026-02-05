@@ -1,0 +1,103 @@
+<div class="exchange-rate-container">
+  <h2>Convertisseur EUR / USD</h2>
+  
+  <div class="rate-display">
+    <p>Taux de change actuel</p>
+    <span class="rate-value">1 EUR = {{ tauxDeChange() | number:'1.4-4' }} USD</span>
+    <small>{{ tauxModifie() ? '🔒 Taux fixé' : '🔄 Taux automatique' }}</small>
+  </div>
+
+  <div class="converter">
+    <div class="rate-control">
+      <label>
+        <input 
+          type="checkbox" 
+          [checked]="tauxModifie()"
+          (change)="tauxModifie.set(!tauxModifie()); onModificationTaux()"
+        />
+        Fixer le taux de change
+      </label>
+      
+      @if(tauxModifie()) {
+        <div style="margin-top: 10px;">
+          <label for="fixedRate">Taux fixe (1 EUR = ? USD)</label>
+          <input 
+            type="number" 
+            id="fixedRate"
+            [ngModel]="nouveauTaux()"
+            (ngModelChange)="nouveauTaux.set($event); onModificationTaux()"
+            placeholder="Entrez le taux"
+            min="0"
+            step="0.0001"
+          />
+        </div>
+      }
+    </div>
+
+    <div class="switch-container">
+      <label>
+        <input 
+          type="checkbox" 
+          [checked]="conversionMode() === 'USD'"
+          (change)="changerDevise()"
+        />
+        Mode : <strong>{{ conversionMode() }}</strong>
+      </label>
+    </div>
+
+    <div>
+      <label for="amount">Montant en {{ conversionMode() }}</label>
+      <input 
+        type="number" 
+        id="amount"
+        [ngModel]="montant()"
+        (ngModelChange)="montant.set($event)"
+        [placeholder]="'Entrez un montant en ' + conversionMode()"
+        min="0"
+        step="0.01"
+      />
+    </div>
+
+    <div>
+      <label>Montant en {{ conversionMode() === 'EUR' ? 'USD' : 'EUR' }}</label>
+      <div class="result-value">
+        {{ montantConvertit() | number:'1.2-2' }} {{ conversionMode() === 'EUR' ? 'USD' : 'EUR' }}
+      </div>
+    </div>
+
+    <button 
+      (click)="enregistrerConversion()" 
+      [disabled]="montant() <= 0"
+      class="btn-enregistrer">
+      Enregistrer cette conversion
+    </button>
+  </div>
+
+  @if(historiques().length > 0) {
+    <div class="historique-section">
+      <h3>Historique des conversions (5 dernières)</h3>
+      <table class="historique-table">
+        <thead>
+          <tr>
+            <th>Taux réel</th>
+            <th>Taux saisi</th>
+            <th>Valeur initiale</th>
+            <th>Valeur calculée</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(historique of historiques(); track historique.date) {
+            <tr>
+              <td>{{ historique.tauxReel | number:'1.4-4' }}</td>
+              <td>{{ historique.tauxSaisi !== null ? (historique.tauxSaisi | number:'1.4-4') : '-' }}</td>
+              <td>{{ historique.valeurInitiale | number:'1.2-2' }} {{ historique.deviseInitiale }}</td>
+              <td>{{ historique.valeurCalculee | number:'1.2-2' }} {{ historique.deviseCalculee }}</td>
+              <td>{{ historique.date | date:'short' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

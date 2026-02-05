@@ -1,9 +1,9 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { TauxDeChangeComponent } from "./components/taux-de-change.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [ TauxDeChangeComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
